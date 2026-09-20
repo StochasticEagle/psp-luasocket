@@ -462,9 +462,9 @@ all: $(SOCKET_SO) $(MIME_SO)
 static: $(STATIC_LIB) $(COMBINED_H)
 
 $(COMBINED_H): luasocket.h compat.h mime.h
-	sed '29,$d' luasocket.h > $(COMBINED_H)
-	sed -e '1,2d' -e '$d' compat.h >> $(COMBINED_H)
-	sed -n '30,$p' luasocket.h >> $(COMBINED_H)
+	head -n 28 luasocket.h > $(COMBINED_H)
+	tail -n +3 compat.h | head -n -1 >> $(COMBINED_H)
+	tail -n +30 luasocket.h >> $(COMBINED_H)
 	sed '11d' mime.h >> $(COMBINED_H)
 
 $(STATIC_LIB): $(SOCKET_OBJS) $(MIME_OBJS) $(UNIX_OBJS) $(SERIAL_OBJS)
