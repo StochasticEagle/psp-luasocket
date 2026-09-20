@@ -10,11 +10,7 @@
 #include "unixstream.h"
 
 #include <string.h>
-#ifndef PSP
 #include <sys/un.h>
-#else
-#include "psp-un.h"
-#endif
 
 /*=========================================================================*\
 * Internal function prototypes

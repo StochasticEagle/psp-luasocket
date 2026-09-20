@@ -32,12 +32,9 @@
 #ifndef PSP
 #include <net/if.h>
 #else
-#include "getaddrinfo.h"
-
 #ifndef INET6_ADDRSTRLEN
 #define INET6_ADDRSTRLEN INET_ADDRSTRLEN
 #endif
-
 #endif
 
 #ifndef SO_REUSEPORT

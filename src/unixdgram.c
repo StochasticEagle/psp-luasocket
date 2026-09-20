@@ -12,11 +12,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#ifndef PSP
 #include <sys/un.h>
-#else
-#include "psp-un.h"
-#endif
 
 #define UNIXDGRAM_DATAGRAMSIZE 8192
 

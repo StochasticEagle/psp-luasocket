@@ -310,7 +310,7 @@ A_psp=a
 CC_psp=psp-gcc
 DEF_psp=-DLUASOCKET_$(DEBUG) -DUNIX_HAS_SUN_LEN
 CFLAGS_psp=$(LUAINC:%=-I%) $(PSPSDK:%=-I%)/include $(DEF) -Wall -Wshadow -Wextra \
-	-Wimplicit -O2 -ggdb3 -DHAVE_CONFIG_H -DSOCKET_SELECT -DNOIPV6
+	-Wimplicit -O2 -ggdb3 -DSOCKET_SELECT -DNOIPV6
 LDFLAGS_psp=$(LUALIB) && mv templib.a
 LD_psp=psp-ar rcs templib.a
 AR_psp=psp-ar rcs
@@ -348,13 +348,6 @@ LD=$(LD_$(PLAT))
 AR=$(AR_$(PLAT))
 LUAINC= $(LUAINC_$(PLAT))
 LUALIB= $(LUALIB_$(PLAT))
-
-#------
-# Platform-specific modules
-#
-PLATFORM_OBJS_psp= \
-	netdb-compat.$(O) \
-	getaddrinfo.$(O)
 
 #------
 # Modules belonging to socket-core
@@ -474,10 +467,10 @@ $(COMBINED_H): luasocket.h compat.h mime.h
 	sed -n '30,$p' luasocket.h >> $(COMBINED_H)
 	sed '11d' mime.h >> $(COMBINED_H)
 
-$(STATIC_LIB): $(PLATFORM_OBJS_$(PLAT)) $(SOCKET_OBJS) $(MIME_OBJS) $(UNIX_OBJS) $(SERIAL_OBJS)
-	$(AR) $@ $(PLATFORM_OBJS_$(PLAT)) $(SOCKET_OBJS) $(MIME_OBJS) $(UNIX_OBJS) $(SERIAL_OBJS)
+$(STATIC_LIB): $(SOCKET_OBJS) $(MIME_OBJS) $(UNIX_OBJS) $(SERIAL_OBJS)
+	$(AR) $@ $(SOCKET_OBJS) $(MIME_OBJS) $(UNIX_OBJS) $(SERIAL_OBJS)
 
-$(SOCKET_SO): $(PLATFORM_OBJS_$(PLAT)) $(SOCKET_OBJS)
+$(SOCKET_SO): $(SOCKET_OBJS)
 	$(LD) $(SOCKET_OBJS) $(LDFLAGS)$@
 
 $(MIME_SO): $(MIME_OBJS)
@@ -519,7 +512,7 @@ local:
 	$(MAKE) install INSTALL_TOP_CDIR=.. INSTALL_TOP_LDIR=..
 
 clean:
-	rm -f $(SOCKET_SO) $(PLATFORM_OBJS_$(PLAT)) $(SOCKET_OBJS) $(SERIAL_OBJS) $(COMBINED_H)
+	rm -f $(SOCKET_SO) $(SOCKET_OBJS) $(SERIAL_OBJS) $(COMBINED_H)
 	rm -f $(STATIC_LIB) $(MIME_SO) $(UNIX_SO) $(SERIAL_SO) $(MIME_OBJS) $(UNIX_OBJS)
 
 .PHONY: all $(PLATS) default clean echo none
@@ -551,5 +544,3 @@ unix.$(O): unix.c auxiliar.h socket.h io.h timeout.h usocket.h \
 	options.h unix.h buffer.h
 usocket.$(O): usocket.c socket.h io.h timeout.h usocket.h
 wsocket.$(O): wsocket.c socket.h io.h timeout.h usocket.h
-getaddrinfo.$(O): getaddrinfo.c getaddrinfo.h
-netdb-compat.$(O): netdb-compat.c netdb-compat.h
