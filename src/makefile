@@ -307,13 +307,13 @@ endif
 SO_psp=a
 O_psp=o
 A_psp=a
-CC_psp=psp-gcc
+CC_psp=$(PSPDEV)/bin/psp-gcc
 DEF_psp=-DLUASOCKET_$(DEBUG) -DUNIX_HAS_SUN_LEN -DPSP -D__PSP__ -D_PSP_FW_VERSION=600
-CFLAGS_psp=$(LUAINC:%=-I%) $(PSPSDK:%=-I%)/include $(DEF) -Wall -Wshadow -Wextra \
+CFLAGS_psp=$(LUAINC:%=-I%) $(PSPSDK:%=-I%)/include -include $(PSP_PREFIX)/include/netdb.h $(DEF) -Wall -Wshadow -Wextra \
 	-Wimplicit -O2 -ggdb3 -DSOCKET_SELECT -DNOIPV6
 LDFLAGS_psp=$(LUALIB) && mv templib.a
-LD_psp=psp-ar rcs templib.a
-AR_psp=psp-ar rcs
+LD_psp=$(PSPDEV)/bin/psp-ar rcs templib.a
+AR_psp=$(PSPDEV)/bin/psp-ar rcs
 SOCKET_psp=usocket.o
 
 .SUFFIXES: .obj

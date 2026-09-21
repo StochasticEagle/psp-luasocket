@@ -61,6 +61,7 @@ int opt_meth_getoption(lua_State *L, p_opt opt, p_socket ps)
 int opt_set_bindtodevice(lua_State *L, p_socket ps)
 {
 #ifndef SO_BINDTODEVICE
+    (void) ps;
     return luaL_error(L, "SO_BINDTODEVICE is not supported on this operating system");
 #else
     const char *dev = luaL_checkstring(L, 3);
@@ -100,6 +101,7 @@ int opt_get_reuseaddr(lua_State *L, p_socket ps)
 int opt_set_exclusiveaddruse(lua_State* L, p_socket ps)
 {
 #ifndef SO_EXCLUSIVEADDRUSE
+    (void) ps;
     return luaL_error(L, "SO_EXCLUSIVEADDRUSE is not supported on this operating system");
 #else
     return opt_setboolean(L, ps, SOL_SOCKET, SO_EXCLUSIVEADDRUSE);
