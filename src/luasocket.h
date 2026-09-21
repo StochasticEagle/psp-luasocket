@@ -13,6 +13,10 @@
 #define LUASOCKET_VERSION    "LuaSocket 3.1.0"
 #define LUASOCKET_COPYRIGHT  "Copyright (C) 1999-2013 Diego Nehab"
 
+#ifdef PSP
+#include <netdb.h>
+#endif
+
 /*-------------------------------------------------------------------------*\
 * This macro prefixes all exported API functions
 \*-------------------------------------------------------------------------*/

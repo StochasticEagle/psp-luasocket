@@ -308,7 +308,7 @@ SO_psp=a
 O_psp=o
 A_psp=a
 CC_psp=psp-gcc
-DEF_psp=-DLUASOCKET_$(DEBUG) -DUNIX_HAS_SUN_LEN
+DEF_psp=-DLUASOCKET_$(DEBUG) -DUNIX_HAS_SUN_LEN -DPSP -D__PSP__ -D_PSP_FW_VERSION=600
 CFLAGS_psp=$(LUAINC:%=-I%) $(PSPSDK:%=-I%)/include $(DEF) -Wall -Wshadow -Wextra \
 	-Wimplicit -O2 -ggdb3 -DSOCKET_SELECT -DNOIPV6
 LDFLAGS_psp=$(LUALIB) && mv templib.a
